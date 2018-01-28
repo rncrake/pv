@@ -22,9 +22,10 @@ define(
   [
     '../gl-matrix', 
     './mol',
-    './superpose'
+    './superpose',
+    './symmetry',
   ], 
-  function(glMatrix, mol, sp) {
+  function(glMatrix, mol, sp, symmetry) {
 
 "use strict";
 
@@ -100,6 +101,7 @@ return {
   superpose: sp.superpose,
   matchResiduesByIndex: sp.matchResiduesByIndex,
   matchResiduesByNum: sp.matchResiduesByNum,
+  symmetry : symmetry
 
 };
 
