@@ -346,6 +346,7 @@ function Mol() {
   this._chains = [];
   this._assemblies = [];
   this._nextAtomIndex = 0;
+  this._selectedAtoms = new Set();
 }
 
 utils.derive(Mol, MolBase, {
@@ -374,6 +375,41 @@ utils.derive(Mol, MolBase, {
       }
     }
     return null;
+  },
+
+  clearSelection : function() {
+    this._selectedAtoms.clear();
+  },
+
+  addAtomSelection : function(atom) {
+    if(! this._selectedAtoms.has(atom)) {
+      this._selectedAtoms.add(atom);
+      return true;
+    }
+    return false;
+  },
+
+  removeAtomSelection : function(atom) {
+    if(!this._selectedAtoms.has(atom)) {
+      return false;
+    }
+
+    this._selectedAtoms.delete(atom);
+    return true;
+  },
+
+  addResidueSelection : function(residue) {
+    var mol = this;
+    residue.atoms().forEach(function(atom) { mol.addAtomSelection(atom); });
+  },
+
+  removeResidueSelection : function(residue) { 
+    var mol = this;
+    residue.atoms().forEach(function(atom) { mol.removeAtomSelection(atom); });
+  },
+
+  selectedAtoms : function() {
+    return this._selectedAtoms;
   },
 
   // for backwards compatibility

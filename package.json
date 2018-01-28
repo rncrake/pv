@@ -20,7 +20,6 @@
     }
   ],
   "main": "bio-pv.js",
-
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-concat": "~0.3.0",
@@ -46,7 +45,7 @@
     ]
   },
   "scripts": {
-    "prepublish": "scripts/make.sh",
+    "prepublish": "scripts\\make.sh",
     "build-biojs": "browserify -r ./:bio-pv > js/bio-pv.browserify.js"
   },
   "files": [

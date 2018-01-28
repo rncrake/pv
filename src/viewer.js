@@ -279,7 +279,6 @@ Viewer.prototype = {
       click : getClickHandler(opts),
       fog : optValue(opts, 'fog', true),
       transparency : optValue(opts, 'transparency', 'alpha'),
-      noKeyboardGrab : optValue(opts, 'noKeyboardGrab', false),
     };
     var parentRect = domElement.getBoundingClientRect();
     if (options.width === 'auto') {
@@ -481,10 +480,6 @@ Viewer.prototype = {
   },
 
   _initKeyboardInput: function() {
-    if (this._options.noKeyboardGrab) {
-        this._keyInput = null;
-        return;
-    }
     if (isiOS() || isAndroid()) {
       this._keyInput = document;
       return;
@@ -495,17 +490,18 @@ Viewer.prototype = {
     // only capture keypress events when the viewer is focused.
     var zeroSizedDiv = document.createElement('div');
     zeroSizedDiv.setAttribute('style', 'overflow:hidden;width:0;height:0');
+	zeroSizedDiv.style.padding = 0;
     this._keyInput = document.createElement('textarea');
+	this._keyInput.setAttribute('style', 'hidden');
     this._domElement.appendChild(zeroSizedDiv);
     zeroSizedDiv.appendChild(this._keyInput);
     this._keyInput.focus();
   },
 
   focus : function() {
-    if (this._keyInput === document || this._keyInput === null) {
-      return;
+    if (this._keyInput !== document) {
+      this._keyInput.focus();
     }
-    this._keyInput.focus();
   },
 
   _initCanvas : function() {
@@ -1039,8 +1035,8 @@ Viewer.prototype = {
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.disable(gl.BLEND);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.clearColor(this._options.background[0], this._options.background[1], 
-                  this._options.background[2], 1.0);
+    // gl.clearColor(this._options.background[0], 
+	// this._options.background[1], this._options.background[2], 1.0);
     gl.cullFace(gl.FRONT);
     gl.enable(gl.CULL_FACE);
     this._drawWithPass('select');

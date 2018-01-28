@@ -160,8 +160,8 @@ Canvas.prototype = {
     gl.viewportWidth = this._realWidth;
     gl.viewportHeight = this._realHeight;
 
-    gl.clearColor(this._backgroundColor[0], this._backgroundColor[1], 
-                  this._backgroundColor[2], 1.0);
+    // gl.clearColor(this._backgroundColor[0], this._backgroundColor[1], 
+                  // this._backgroundColor[2], 1.0);
     gl.lineWidth(2.0);
     gl.cullFace(gl.FRONT);
     gl.enable(gl.CULL_FACE);
